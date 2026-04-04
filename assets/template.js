@@ -65,12 +65,12 @@ https://templatemo.com/tm-613-frost-bakery
     const sections = document.querySelectorAll("section[id]");
 
     function updateActiveNav() {
-        var scrollY = window.scrollY + 120;
+        let scrollY = window.scrollY + 120;
 
         sections.forEach(function (section) {
-            var top = section.offsetTop;
-            var height = section.offsetHeight;
-            var id = section.getAttribute("id");
+            let top = section.offsetTop;
+            let height = section.offsetHeight;
+            let id = section.getAttribute("id");
 
             if (scrollY >= top && scrollY < top + height) {
                 navLinks.forEach(function (link) {
@@ -89,10 +89,10 @@ https://templatemo.com/tm-613-frost-bakery
          Scroll-Triggered Reveal Animations
          (IntersectionObserver)
          ------------------------------------------- */
-    var revealElements = document.querySelectorAll(".reveal");
+    let revealElements = document.querySelectorAll(".reveal");
 
     if ("IntersectionObserver" in window) {
-        var revealObserver = new IntersectionObserver(
+        let revealObserver = new IntersectionObserver(
             function (entries) {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
@@ -123,7 +123,7 @@ https://templatemo.com/tm-613-frost-bakery
          ------------------------------------------- */
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
         anchor.addEventListener("click", function (e) {
-            var target = document.querySelector(this.getAttribute("href"));
+            let target = document.querySelector(this.getAttribute("href"));
             if (target) {
                 e.preventDefault();
                 target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -134,12 +134,12 @@ https://templatemo.com/tm-613-frost-bakery
     /* -------------------------------------------
          Seasonal Tabs
          ------------------------------------------- */
-    var seasonTabs = document.querySelectorAll(".seasonal-tab");
-    var seasonPanels = document.querySelectorAll(".seasonal-panel");
+    let seasonTabs = document.querySelectorAll(".seasonal-tab");
+    let seasonPanels = document.querySelectorAll(".seasonal-panel");
 
     seasonTabs.forEach(function (tab) {
         tab.addEventListener("click", function () {
-            var season = this.getAttribute("data-season");
+            let season = this.getAttribute("data-season");
 
             // Update tabs
             seasonTabs.forEach(function (t) {
