@@ -4,270 +4,275 @@
 {% endblock %}
 
 {% block body %}
-	<!-- ==========================================
-																							       Mobile Hamburger Button
-																							       ========================================== -->
-	<button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-		<div class="hamburger__lines">
-			<span></span>
-			<span></span>
-			<span></span>
-		</div>
-	</button>
+
+	{% include "nav/nav.html.twig" %}
+	<main
+		class="main">
+		<!-- ==========================================
+																										       Mobile Hamburger Button
+																										       ========================================== -->
+		<button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+			<div class="hamburger__lines">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</button>
 
 
-	<!-- Mobile Sidebar Overlay -->
-	<div class="sidebar-overlay" id="sidebarOverlay"></div>
+		<!-- Mobile Sidebar Overlay -->
+		<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 
-	{% include "home/dashboard.html.twig" %}
+		{% include "home/dashboard.html.twig" %}
 
-	{% include "home/clients.html.twig" %}
+		{% include "home/clients.html.twig" %}
 
-	{% include "home/factures.html.twig" %}
+		{% include "home/factures.html.twig" %}
 
-	{% include "home/paiement.html.twig" %}
-	<!-- ======= SEASONAL LIMITED EDITIONS ======= -->
-	<!-- ======= SEASONAL LIMITED EDITIONS — Tabs ======= -->
-		<section class="section" id="seasonal"> <div class="section__header reveal">
-			<span class="section__label">Limited Editions</span>
-			<h2 class="section__title">Seasonal scoops, fleeting &amp; fresh</h2>
-			<p class="section__desc">Each season brings a small-batch lineup inspired by what's ripe, what's in the air, and a little bit of nostalgia.</p>
-		</div>
-
-		<!-- Season Tabs -->
-		<div class="seasonal-tabs reveal" role="tablist">
-			<button class="seasonal-tab is-active" data-season="spring" role="tab" aria-selected="true" aria-controls="panel-spring">
-				<span class="seasonal-tab__icon" aria-hidden="true">&#127800;</span>
-				Spring
-			</button>
-			<button class="seasonal-tab" data-season="summer" role="tab" aria-selected="false" aria-controls="panel-summer">
-				<span class="seasonal-tab__icon" aria-hidden="true">&#9728;</span>
-				Summer
-			</button>
-			<button class="seasonal-tab" data-season="autumn" role="tab" aria-selected="false" aria-controls="panel-autumn">
-				<span class="seasonal-tab__icon" aria-hidden="true">&#127810;</span>
-				Autumn
-			</button>
-			<button class="seasonal-tab" data-season="winter" role="tab" aria-selected="false" aria-controls="panel-winter">
-				<span class="seasonal-tab__icon" aria-hidden="true">&#10052;</span>
-				Winter
-			</button>
-		</div>
-
-		<!-- Tab Panels -->
-		<div
-			class="seasonal-panels reveal">
-
-			<!-- Spring Panel -->
-			<div class="seasonal-panel is-active" id="panel-spring" role="tabpanel">
-				<div class="seasonal-panel__visual">
-					<img src="images/spring-collection.avif" alt="Cherry blossom almond gelato with petals" loading="lazy">
-					<span class="seasonal-panel__badge">Available Mar – May</span>
-				</div>
-				<div class="seasonal-panel__details">
-					<span class="seasonal-panel__season-label">Spring Collection</span>
-					<h3 class="seasonal-panel__name">Cherry Blossom Almond</h3>
-					<p class="seasonal-panel__desc">A floral almond gelato topped with candied cherry blossom petals and a hint of rosewater. Light, fragrant, and utterly dreamy — like a stroll through a blooming orchard.</p>
-					<div class="seasonal-panel__meta">
-						<span class="seasonal-panel__meta-tag">
-							<span>&#127846;</span>
-							Gelato</span>
-						<span class="seasonal-panel__meta-tag">
-							<span>&#10024;</span>
-							Limited Batch</span>
-						<span class="seasonal-panel__meta-tag">
-							<span>&#127793;</span>
-							Nut Allergy Info</span>
-					</div>
-					<a href="#hero" class="btn btn--primary seasonal-panel__cta">Try It Now</a>
-				</div>
+		{% include "home/paiement.html.twig" %}
+		<!-- ======= SEASONAL LIMITED EDITIONS ======= -->
+		<!-- ======= SEASONAL LIMITED EDITIONS — Tabs ======= -->
+			<section class="section" id="seasonal"> <div class="section__header reveal">
+				<span class="section__label">Limited Editions</span>
+				<h2 class="section__title">Seasonal scoops, fleeting &amp; fresh</h2>
+				<p class="section__desc">Each season brings a small-batch lineup inspired by what's ripe, what's in the air, and a little bit of nostalgia.</p>
 			</div>
 
-			<!-- Summer Panel -->
-			<div class="seasonal-panel" id="panel-summer" role="tabpanel">
-				<div class="seasonal-panel__visual">
-					<img src="images/summer-collection.avif" alt="Mango chili lime sorbet with tropical fruits" loading="lazy">
-					<span class="seasonal-panel__badge">Available Jun – Aug</span>
-				</div>
-				<div class="seasonal-panel__details">
-					<span class="seasonal-panel__season-label">Summer Collection</span>
-					<h3 class="seasonal-panel__name">Mango Chili Lime</h3>
-					<p class="seasonal-panel__desc">Sweet Alphonso mango sorbet dusted with Tajín chili-lime seasoning and a lime zest crumble. Where tropical heat meets frozen sweet — our most requested comeback flavor.</p>
-					<div class="seasonal-panel__meta">
-						<span class="seasonal-panel__meta-tag">
-							<span>&#127847;</span>
-							Sorbet</span>
-						<span class="seasonal-panel__meta-tag">
-							<span>&#127793;</span>
-							Dairy-Free</span>
-						<span class="seasonal-panel__meta-tag">
-							<span>&#127798;</span>
-							Mild Spice</span>
-					</div>
-					<a href="#hero" class="btn btn--primary seasonal-panel__cta">Try It Now</a>
-				</div>
+			<!-- Season Tabs -->
+			<div class="seasonal-tabs reveal" role="tablist">
+				<button class="seasonal-tab is-active" data-season="spring" role="tab" aria-selected="true" aria-controls="panel-spring">
+					<span class="seasonal-tab__icon" aria-hidden="true">&#127800;</span>
+					Spring
+				</button>
+				<button class="seasonal-tab" data-season="summer" role="tab" aria-selected="false" aria-controls="panel-summer">
+					<span class="seasonal-tab__icon" aria-hidden="true">&#9728;</span>
+					Summer
+				</button>
+				<button class="seasonal-tab" data-season="autumn" role="tab" aria-selected="false" aria-controls="panel-autumn">
+					<span class="seasonal-tab__icon" aria-hidden="true">&#127810;</span>
+					Autumn
+				</button>
+				<button class="seasonal-tab" data-season="winter" role="tab" aria-selected="false" aria-controls="panel-winter">
+					<span class="seasonal-tab__icon" aria-hidden="true">&#10052;</span>
+					Winter
+				</button>
 			</div>
 
-			<!-- Autumn Panel -->
-			<div class="seasonal-panel" id="panel-autumn" role="tabpanel">
-				<div class="seasonal-panel__visual">
-					<img src="images/autumn-collection.avif" alt="Pumpkin chai swirl ice cream with autumn spices" loading="lazy">
-					<span class="seasonal-panel__badge">Available Sep – Nov</span>
-				</div>
-				<div class="seasonal-panel__details">
-					<span class="seasonal-panel__season-label">Autumn Collection</span>
-					<h3 class="seasonal-panel__name">Pumpkin Chai Swirl</h3>
-					<p class="seasonal-panel__desc">Spiced pumpkin ice cream swirled with masala chai caramel and topped with toasted pumpkin seeds. Cozy, warming, and the perfect excuse to add an extra scoop.</p>
-					<div class="seasonal-panel__meta">
-						<span class="seasonal-panel__meta-tag">
-							<span>&#127846;</span>
-							Ice Cream</span>
-						<span class="seasonal-panel__meta-tag">
-							<span>&#10024;</span>
-							Fan Favorite</span>
-						<span class="seasonal-panel__meta-tag">
-							<span>&#127869;</span>
-							Contains Dairy</span>
-					</div>
-					<a href="#hero" class="btn btn--primary seasonal-panel__cta">Try It Now</a>
-				</div>
-			</div>
+			<!-- Tab Panels -->
+			<div
+				class="seasonal-panels reveal">
 
-			<!-- Winter Panel -->
-			<div class="seasonal-panel" id="panel-winter" role="tabpanel">
-				<div class="seasonal-panel__visual">
-					<img src="images/winter-collection.avif" alt="Peppermint bark brownie ice cream with chocolate pieces" loading="lazy">
-					<span class="seasonal-panel__badge">Available Dec – Feb</span>
-				</div>
-				<div class="seasonal-panel__details">
-					<span class="seasonal-panel__season-label">Winter Collection</span>
-					<h3 class="seasonal-panel__name">Peppermint Bark Brownie</h3>
-					<p class="seasonal-panel__desc">Dark chocolate peppermint ice cream loaded with fudgy brownie chunks and shattered white chocolate peppermint bark. Holiday indulgence in every bite.</p>
-					<div class="seasonal-panel__meta">
-						<span class="seasonal-panel__meta-tag">
-							<span>&#127846;</span>
-							Ice Cream</span>
-						<span class="seasonal-panel__meta-tag">
-							<span>&#127876;</span>
-							Holiday Special</span>
-						<span class="seasonal-panel__meta-tag">
-							<span>&#10024;</span>
-							Limited Batch</span>
+				<!-- Spring Panel -->
+				<div class="seasonal-panel is-active" id="panel-spring" role="tabpanel">
+					<div class="seasonal-panel__visual">
+						<img src="images/spring-collection.avif" alt="Cherry blossom almond gelato with petals" loading="lazy">
+						<span class="seasonal-panel__badge">Available Mar – May</span>
 					</div>
-					<a href="#hero" class="btn btn--primary seasonal-panel__cta">Try It Now</a>
-				</div>
-			</div>
-
-		</div>
-	</section>
-
-	<!-- ======= LOYALTY STAMP CARD ======= -->
-	<section class="section section--alt loyalty" id="loyalty">
-		<div class="section__header reveal">
-			<span class="section__label">Frost Rewards</span>
-			<h2 class="section__title">Every scoop gets you closer</h2>
-			<p class="section__desc">Grab a stamp card on your next visit. Ten stamps earns a free scoop — plus bonus perks along the way.</p>
-		</div>
-
-		<div class="loyalty__layout">
-			<div class="loyalty__info reveal">
-				<div class="loyalty__perks">
-					<div class="perk">
-						<div class="perk__icon">&#10003;</div>
-						<p class="perk__text">
-							<strong>5th stamp:</strong>
-							Free topping upgrade on any sundae or cone — go ahead, add the brownie bites.</p>
-					</div>
-					<div class="perk">
-						<div class="perk__icon">&#10003;</div>
-						<p class="perk__text">
-							<strong>10th stamp:</strong>
-							One free single scoop in any flavor, including seasonal and limited editions.</p>
-					</div>
-					<div class="perk">
-						<div class="perk__icon">&#10003;</div>
-						<p class="perk__text">
-							<strong>Birthday bonus:</strong>
-							Show your ID on your birthday month and get a free waffle cone upgrade all week.</p>
-					</div>
-					<div class="perk">
-						<div class="perk__icon">&#10003;</div>
-						<p class="perk__text">
-							<strong>Referral reward:</strong>
-							Bring a friend who starts a card, and you both get a bonus stamp.</p>
+					<div class="seasonal-panel__details">
+						<span class="seasonal-panel__season-label">Spring Collection</span>
+						<h3 class="seasonal-panel__name">Cherry Blossom Almond</h3>
+						<p class="seasonal-panel__desc">A floral almond gelato topped with candied cherry blossom petals and a hint of rosewater. Light, fragrant, and utterly dreamy — like a stroll through a blooming orchard.</p>
+						<div class="seasonal-panel__meta">
+							<span class="seasonal-panel__meta-tag">
+								<span>&#127846;</span>
+								Gelato</span>
+							<span class="seasonal-panel__meta-tag">
+								<span>&#10024;</span>
+								Limited Batch</span>
+							<span class="seasonal-panel__meta-tag">
+								<span>&#127793;</span>
+								Nut Allergy Info</span>
+						</div>
+						<a href="#hero" class="btn btn--primary seasonal-panel__cta">Try It Now</a>
 					</div>
 				</div>
 
-				<a href="#hero" class="btn btn--sage" style="margin-top: 2rem;">Start Collecting</a>
+				<!-- Summer Panel -->
+				<div class="seasonal-panel" id="panel-summer" role="tabpanel">
+					<div class="seasonal-panel__visual">
+						<img src="images/summer-collection.avif" alt="Mango chili lime sorbet with tropical fruits" loading="lazy">
+						<span class="seasonal-panel__badge">Available Jun – Aug</span>
+					</div>
+					<div class="seasonal-panel__details">
+						<span class="seasonal-panel__season-label">Summer Collection</span>
+						<h3 class="seasonal-panel__name">Mango Chili Lime</h3>
+						<p class="seasonal-panel__desc">Sweet Alphonso mango sorbet dusted with Tajín chili-lime seasoning and a lime zest crumble. Where tropical heat meets frozen sweet — our most requested comeback flavor.</p>
+						<div class="seasonal-panel__meta">
+							<span class="seasonal-panel__meta-tag">
+								<span>&#127847;</span>
+								Sorbet</span>
+							<span class="seasonal-panel__meta-tag">
+								<span>&#127793;</span>
+								Dairy-Free</span>
+							<span class="seasonal-panel__meta-tag">
+								<span>&#127798;</span>
+								Mild Spice</span>
+						</div>
+						<a href="#hero" class="btn btn--primary seasonal-panel__cta">Try It Now</a>
+					</div>
+				</div>
+
+				<!-- Autumn Panel -->
+				<div class="seasonal-panel" id="panel-autumn" role="tabpanel">
+					<div class="seasonal-panel__visual">
+						<img src="images/autumn-collection.avif" alt="Pumpkin chai swirl ice cream with autumn spices" loading="lazy">
+						<span class="seasonal-panel__badge">Available Sep – Nov</span>
+					</div>
+					<div class="seasonal-panel__details">
+						<span class="seasonal-panel__season-label">Autumn Collection</span>
+						<h3 class="seasonal-panel__name">Pumpkin Chai Swirl</h3>
+						<p class="seasonal-panel__desc">Spiced pumpkin ice cream swirled with masala chai caramel and topped with toasted pumpkin seeds. Cozy, warming, and the perfect excuse to add an extra scoop.</p>
+						<div class="seasonal-panel__meta">
+							<span class="seasonal-panel__meta-tag">
+								<span>&#127846;</span>
+								Ice Cream</span>
+							<span class="seasonal-panel__meta-tag">
+								<span>&#10024;</span>
+								Fan Favorite</span>
+							<span class="seasonal-panel__meta-tag">
+								<span>&#127869;</span>
+								Contains Dairy</span>
+						</div>
+						<a href="#hero" class="btn btn--primary seasonal-panel__cta">Try It Now</a>
+					</div>
+				</div>
+
+				<!-- Winter Panel -->
+				<div class="seasonal-panel" id="panel-winter" role="tabpanel">
+					<div class="seasonal-panel__visual">
+						<img src="images/winter-collection.avif" alt="Peppermint bark brownie ice cream with chocolate pieces" loading="lazy">
+						<span class="seasonal-panel__badge">Available Dec – Feb</span>
+					</div>
+					<div class="seasonal-panel__details">
+						<span class="seasonal-panel__season-label">Winter Collection</span>
+						<h3 class="seasonal-panel__name">Peppermint Bark Brownie</h3>
+						<p class="seasonal-panel__desc">Dark chocolate peppermint ice cream loaded with fudgy brownie chunks and shattered white chocolate peppermint bark. Holiday indulgence in every bite.</p>
+						<div class="seasonal-panel__meta">
+							<span class="seasonal-panel__meta-tag">
+								<span>&#127846;</span>
+								Ice Cream</span>
+							<span class="seasonal-panel__meta-tag">
+								<span>&#127876;</span>
+								Holiday Special</span>
+							<span class="seasonal-panel__meta-tag">
+								<span>&#10024;</span>
+								Limited Batch</span>
+						</div>
+						<a href="#hero" class="btn btn--primary seasonal-panel__cta">Try It Now</a>
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+		<!-- ======= LOYALTY STAMP CARD ======= -->
+		<section class="section section--alt loyalty" id="loyalty">
+			<div class="section__header reveal">
+				<span class="section__label">Frost Rewards</span>
+				<h2 class="section__title">Every scoop gets you closer</h2>
+				<p class="section__desc">Grab a stamp card on your next visit. Ten stamps earns a free scoop — plus bonus perks along the way.</p>
 			</div>
 
-			<!-- Stamp Card Visual -->
-			<div class="stamp-card reveal reveal-delay-1">
-				<div class="stamp-card__header">
-					<span class="stamp-card__title">Your Stamp Card</span>
-					<span class="stamp-card__count">7 / 10</span>
-				</div>
-				<div class="stamp-card__grid">
-					<div class="stamp stamp--filled">&#127846;</div>
-					<div class="stamp stamp--filled">&#127846;</div>
-					<div class="stamp stamp--filled">&#127846;</div>
-					<div class="stamp stamp--filled">&#127846;</div>
-					<div class="stamp stamp--reward stamp--filled">&#9733;</div>
-					<div class="stamp stamp--filled">&#127846;</div>
-					<div class="stamp stamp--filled">&#127846;</div>
-					<div class="stamp">&#127846;</div>
-					<div class="stamp">&#127846;</div>
-					<div class="stamp stamp--reward">FREE</div>
-				</div>
-				<p class="stamp-card__footer">3 more scoops until your free treat!</p>
-			</div>
-		</div>
-	</section>
+			<div class="loyalty__layout">
+				<div class="loyalty__info reveal">
+					<div class="loyalty__perks">
+						<div class="perk">
+							<div class="perk__icon">&#10003;</div>
+							<p class="perk__text">
+								<strong>5th stamp:</strong>
+								Free topping upgrade on any sundae or cone — go ahead, add the brownie bites.</p>
+						</div>
+						<div class="perk">
+							<div class="perk__icon">&#10003;</div>
+							<p class="perk__text">
+								<strong>10th stamp:</strong>
+								One free single scoop in any flavor, including seasonal and limited editions.</p>
+						</div>
+						<div class="perk">
+							<div class="perk__icon">&#10003;</div>
+							<p class="perk__text">
+								<strong>Birthday bonus:</strong>
+								Show your ID on your birthday month and get a free waffle cone upgrade all week.</p>
+						</div>
+						<div class="perk">
+							<div class="perk__icon">&#10003;</div>
+							<p class="perk__text">
+								<strong>Referral reward:</strong>
+								Bring a friend who starts a card, and you both get a bonus stamp.</p>
+						</div>
+					</div>
 
-	<!-- ======= FOOTER ======= -->
-	<footer class="footer">
-		<div class="footer__top">
-			<div>
-				<div class="footer__brand">Fr<span>o</span>st</div>
-				<p class="footer__copy">Small-batch ice cream and gelato, handcrafted daily in our kitchen on Oak Street. Made with love, served with a smile.</p>
-			</div>
+					<a href="#hero" class="btn btn--sage" style="margin-top: 2rem;">Start Collecting</a>
+				</div>
 
-			<div class="footer__links">
-				<div class="footer__col">
-					<h4>Menu</h4>
-					<ul>
-						<li><a href="#flavors">Flavors</a></li>
-						<li><a href="#builder">Build Your Own</a></li>
-						<li><a href="#seasonal">Seasonal Scoops</a></li>
-						<li><a href="#catering">Catering</a></li>
-					</ul>
-				</div>
-				<div class="footer__col">
-					<h4>Company</h4>
-					<ul>
-						<li><a href="#">Our Story</a></li>
-						<li><a href="#">Sourcing</a></li>
-						<li><a href="#">Careers</a></li>
-						<li><a href="#">Press</a></li>
-					</ul>
-				</div>
-				<div class="footer__col">
-					<h4>Connect</h4>
-					<ul>
-						<li><a href="https://x.com/minthu" target="_blank">X Handle</a></li>
-						<li><a href="#">Facebook</a></li>
-						<li><a href="#">Instagram</a></li>
-						<li><a href="#"><span class="__cf_email__" data-cfemail="8fe7eae3e3e0cfe9fde0fcfba1ece0">[email&#160;protected]</span></a></li>
-					</ul>
+				<!-- Stamp Card Visual -->
+				<div class="stamp-card reveal reveal-delay-1">
+					<div class="stamp-card__header">
+						<span class="stamp-card__title">Your Stamp Card</span>
+						<span class="stamp-card__count">7 / 10</span>
+					</div>
+					<div class="stamp-card__grid">
+						<div class="stamp stamp--filled">&#127846;</div>
+						<div class="stamp stamp--filled">&#127846;</div>
+						<div class="stamp stamp--filled">&#127846;</div>
+						<div class="stamp stamp--filled">&#127846;</div>
+						<div class="stamp stamp--reward stamp--filled">&#9733;</div>
+						<div class="stamp stamp--filled">&#127846;</div>
+						<div class="stamp stamp--filled">&#127846;</div>
+						<div class="stamp">&#127846;</div>
+						<div class="stamp">&#127846;</div>
+						<div class="stamp stamp--reward">FREE</div>
+					</div>
+					<p class="stamp-card__footer">3 more scoops until your free treat!</p>
 				</div>
 			</div>
-		</div>
+		</section>
 
-		<div class="footer__bottom">
-			<p>&copy; 2026 Frost Desserts. All rights reserved. Designed by
-				<a href="https://templatemo.com" target="_blank" rel="noopener noreferrer">TemplateMo</a>
-			</p>
-		</div>
-	</footer>
+		<!-- ======= FOOTER ======= -->
+		<footer class="footer">
+			<div class="footer__top">
+				<div>
+					<div class="footer__brand">Fr<span>o</span>st</div>
+					<p class="footer__copy">Small-batch ice cream and gelato, handcrafted daily in our kitchen on Oak Street. Made with love, served with a smile.</p>
+				</div>
+
+				<div class="footer__links">
+					<div class="footer__col">
+						<h4>Menu</h4>
+						<ul>
+							<li><a href="#flavors">Flavors</a></li>
+							<li><a href="#builder">Build Your Own</a></li>
+							<li><a href="#seasonal">Seasonal Scoops</a></li>
+							<li><a href="#catering">Catering</a></li>
+						</ul>
+					</div>
+					<div class="footer__col">
+						<h4>Company</h4>
+						<ul>
+							<li><a href="#">Our Story</a></li>
+							<li><a href="#">Sourcing</a></li>
+							<li><a href="#">Careers</a></li>
+							<li><a href="#">Press</a></li>
+						</ul>
+					</div>
+					<div class="footer__col">
+						<h4>Connect</h4>
+						<ul>
+							<li><a href="https://x.com/minthu" target="_blank">X Handle</a></li>
+							<li><a href="#">Facebook</a></li>
+							<li><a href="#">Instagram</a></li>
+							<li><a href="#"><span class="__cf_email__" data-cfemail="8fe7eae3e3e0cfe9fde0fcfba1ece0">[email&#160;protected]</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="footer__bottom">
+				<p>&copy; 2026 Frost Desserts. All rights reserved. Designed by
+					<a href="https://templatemo.com" target="_blank" rel="noopener noreferrer">TemplateMo</a>
+				</p>
+			</div>
+		</footer>
+	</main>
 {% endblock %}
