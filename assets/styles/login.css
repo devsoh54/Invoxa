@@ -87,3 +87,26 @@ form .alert-danger {
     padding: 10px 12px;
     margin-bottom: 1rem;
 }
+
+/* NOTICE */
+
+.logged-in-notice {
+    font-size: 13px;
+    color: #374151;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 1.25rem;
+}
+
+.logged-in-notice a {
+    color: #16a34a;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+.logged-in-notice a:hover {
+    text-decoration: underline;
+}
