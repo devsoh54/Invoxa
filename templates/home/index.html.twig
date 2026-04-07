@@ -6,11 +6,17 @@
 {% block body %}
 
 	{% include "nav/nav.html.twig" %}
-	<main
-		class="main">
+	<main class="main">
+		{% if app.user %}
+			<div class="mb-3 logged-in-notice">
+				You are logged in as
+				{{ app.user.userIdentifier }},
+				<a href="{{ logout_path() }}">Logout</a>
+			</div>
+		{% endif %}
 		<!-- ==========================================
-																										       Mobile Hamburger Button
-																										       ========================================== -->
+																												       Mobile Hamburger Button
+																												       ========================================== -->
 		<button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
 			<div class="hamburger__lines">
 				<span></span>
