@@ -16,7 +16,6 @@ https://templatemo.com/tm-613-frost-bakery
          ------------------------------------------- */
     const hamburger = document.getElementById("hamburger");
     const sidebar = document.getElementById("sidebar");
-    console.log("dans template js  " + sidebar);
     const overlay = document.getElementById("sidebarOverlay");
     const navLinks = sidebar.querySelectorAll(".sidebar__nav a");
 
