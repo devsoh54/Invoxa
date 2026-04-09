@@ -96,3 +96,64 @@
 .btn-submit:active {
     transform: scale(0.98);
 }
+
+/* Liste client */
+.clients-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.clients-table th {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    padding: 8px 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.clients-table td {
+    padding: 12px 16px;
+    color: #111;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.clients-table tbody tr:hover {
+    background: #f9f9f9;
+    cursor: pointer;
+}
+
+/* Bouton ajout */
+#btn-add-client {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 16px;
+    height: 38px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #16a34a;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+        background 0.15s,
+        transform 0.1s;
+}
+
+#btn-add-client::before {
+    content: "+";
+    font-size: 18px;
+    line-height: 1;
+}
+
+#btn-add-client:hover {
+    background: #dcfce7;
+    border-color: #86efac;
+}
+
+#btn-add-client:active {
+    transform: scale(0.98);
+}

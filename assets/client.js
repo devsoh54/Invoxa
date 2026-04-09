@@ -6,24 +6,37 @@ document.addEventListener("turbo:load", () => {
     const form = document.getElementById("form-client");
 
     if (!container) return;
-    console.log("charegemeeeeent");
     // ── Chargement de la liste ──
     async function loadClients() {
         const res = await fetch("/api/clients");
         const clients = await res.json();
-
-        container.innerHTML = clients
-            .map(
-                (c) => `
-            <div class="client-card">
-                <p>${c.nom}</p>
-                <p>${c.email}</p>
-                ${c.telephone ? `<p>${c.telephone}</p>` : ""}
-                ${c.entreprise ? `<p>${c.entreprise}</p>` : ""}
-            </div>
-        `,
-            )
-            .join("");
+        console.log(clients);
+        container.innerHTML = `
+            <table class="clients-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Entreprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${clients
+                        .map(
+                            (c) => `
+                        <tr>
+                            <td>${c.name}</td>
+                            <td>${c.email}</td>
+                            <td>${c.phone ?? "—"}</td>
+                            <td>${c.company ?? "—"}</td>
+                        </tr>
+                    `,
+                        )
+                        .join("")}
+                </tbody>
+            </table>
+        `;
     }
 
     loadClients();

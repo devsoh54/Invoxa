@@ -34,7 +34,8 @@ final class ClientController extends AbstractController
             'id'    => $client->getId(),
             'name'  => $client->getName(),
             'email' => $client->getEmail(),
-            // ... les champs dont tu as besoin
+            'phone' => $client->getPhone(),
+            'company' => $client->getCompany()
         ], $clients);
 
         return $this->json($data);
