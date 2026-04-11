@@ -2,6 +2,7 @@ document.addEventListener("turbo:load", () => {
     const container = document.getElementById("clients-list");
     const overlay = document.getElementById("modal-overlay");
     const btnAdd = document.getElementById("btn-add-client");
+    const btnEdit = document.getElementById("btn-add-edit");
     const btnClose = document.getElementById("modal-close");
     const form = document.getElementById("form-client");
 
@@ -19,6 +20,7 @@ document.addEventListener("turbo:load", () => {
                         <th>Email</th>
                         <th>Téléphone</th>
                         <th>Entreprise</th>
+                        <th>Modifier</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +32,7 @@ document.addEventListener("turbo:load", () => {
                             <td>${c.email}</td>
                             <td>${c.phone ?? "—"}</td>
                             <td>${c.company ?? "—"}</td>
+                            <td><button class="btn-edit" data-id="${c.id}">Modifier</button></td>
                         </tr>
                     `,
                         )
@@ -37,6 +40,14 @@ document.addEventListener("turbo:load", () => {
                 </tbody>
             </table>
         `;
+
+        document.querySelectorAll(".btn-edit").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const id = parseInt(btn.dataset.id);
+                const client = clients.find((c) => c.id === id);
+                openEditModal(client);
+            });
+        });
     }
 
     loadClients();
@@ -47,6 +58,7 @@ document.addEventListener("turbo:load", () => {
     overlay.addEventListener("click", (e) => {
         if (e.target === overlay) overlay.classList.add("hidden");
     });
+    btnEdit.addEventListener("click", () => {});
 
     // ── Soumission du formulaire ──
     form.addEventListener("submit", async (e) => {
@@ -68,4 +80,14 @@ document.addEventListener("turbo:load", () => {
         overlay.classList.add("hidden");
         loadClients(); // rafraîchit la liste
     });
+
+    function openEditModal(client) {
+        document.getElementById("client-nom").value = client.name;
+        document.getElementById("client-email").value = client.email;
+        document.getElementById("client-tel").value = client.phone ?? "";
+        document.getElementById("client-entreprise").value =
+            client.company ?? "";
+
+        overlay.classList.remove("hidden");
+    }
 });
