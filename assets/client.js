@@ -6,6 +6,7 @@ document.addEventListener("turbo:load", () => {
     const btnClose = document.getElementById("modal-close");
     const btnCloseDelete = document.getElementById("modal-close-delete");
     const form = document.getElementById("form-client");
+    const btnConfirmeDelete = document.getElementById("confirmeDelete");
     let currentClientId = null;
 
     if (!container) return;
@@ -106,6 +107,19 @@ document.addEventListener("turbo:load", () => {
         loadClients(); // rafraîchit la liste
     });
 
+    btnConfirmeDelete.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const url = `/api/clients/delete/${currentClientId}`;
+        await fetch(url, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+
+        overlayDelete.classList.add("hidden");
+        loadClients(); // rafraîchit la liste
+    });
+
     function openEditModal(client) {
         document.getElementById("client-nom").value = client.name;
         document.getElementById("client-email").value = client.email;
@@ -119,6 +133,7 @@ document.addEventListener("turbo:load", () => {
     function openDeleteModal(client) {
         document.getElementById("message-delete-client").textContent =
             "Voulez-vous vraiment supprimer le client " + client.name + " ?";
+        currentClientId = client.id;
         overlayDelete.classList.remove("hidden");
     }
 });
