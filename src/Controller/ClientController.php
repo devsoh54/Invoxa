@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 #[IsGranted('ROLE_USER')]
+#[Route("/api/clients")]
 final class ClientController extends AbstractController
 {
     #[Route('/client', name: 'app_client')]
@@ -23,7 +24,7 @@ final class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/api/clients', name: 'api_clients', methods: ['GET'])]
+    #[Route('/list', name: 'api_clients', methods: ['GET'])]
     public function list(ClientRepository $clientRepository): JsonResponse
     {
         $clients = $clientRepository->findBy([
@@ -41,12 +42,13 @@ final class ClientController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route('/api/clients', name: 'api_clients_create', methods: ['POST'])]
-    public function create(Request $request, EntityManagerInterface $em): JsonResponse
+    #[Route('/create', name: 'api_clients_create', methods: ['POST'])]
+    #[Route('/edit/{id}', name: 'api_clients_edit', methods: ['GET', 'POST'])]
+    public function create(Request $request, EntityManagerInterface $em, ?Client $client): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
-        $client = new Client();
+        $client = $client ?? new Client();
         $client->setName($data['nom']);
         $client->setEmail($data['email']);
         $client->setPhone($data['telephone'] ?? null);
@@ -58,4 +60,5 @@ final class ClientController extends AbstractController
 
         return $this->json(['id' => $client->getId()], 201);
     }
+
 }

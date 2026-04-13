@@ -5,11 +5,12 @@ document.addEventListener("turbo:load", () => {
     const btnEdit = document.getElementById("btn-add-edit");
     const btnClose = document.getElementById("modal-close");
     const form = document.getElementById("form-client");
+    let currentClientId = null;
 
     if (!container) return;
     // ── Chargement de la liste ──
     async function loadClients() {
-        const res = await fetch("/api/clients");
+        const res = await fetch("/api/clients/list");
         const clients = await res.json();
         console.log(clients);
         container.innerHTML = `
@@ -53,18 +54,25 @@ document.addEventListener("turbo:load", () => {
     loadClients();
 
     // ── Ouverture / fermeture modal ──
-    btnAdd.addEventListener("click", () => overlay.classList.remove("hidden"));
+    btnAdd.addEventListener("click", () => {
+        currentClientId = null;
+        form.reset();
+        overlay.classList.remove("hidden");
+    });
     btnClose.addEventListener("click", () => overlay.classList.add("hidden"));
     overlay.addEventListener("click", (e) => {
         if (e.target === overlay) overlay.classList.add("hidden");
     });
-    btnEdit.addEventListener("click", () => {});
+    //btnEdit.addEventListener("click", () => {});
 
     // ── Soumission du formulaire ──
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        await fetch("/api/clients", {
+        const url = currentClientId
+            ? `/api/clients/edit/${currentClientId}`
+            : "/api/clients/create";
+        await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -87,7 +95,7 @@ document.addEventListener("turbo:load", () => {
         document.getElementById("client-tel").value = client.phone ?? "";
         document.getElementById("client-entreprise").value =
             client.company ?? "";
-
+        currentClientId = client.id;
         overlay.classList.remove("hidden");
     }
 });
