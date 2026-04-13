@@ -26,8 +26,19 @@
 					<label for="client-entreprise">Entreprise</label>
 					<input type="text" id="client-entreprise">
 				</div>
-				<button type="submit" class="btn-submit">Créer le client</button>
+				<button type="submit" class="btn-submit">Valider</button>
 			</form>
+		</div>
+	</div>
+
+	<div id="modal-overlay-delete" class="modal-overlay hidden">
+		<div class="modal-card">
+			<div class="modal-header">
+				<h2>Suppression d'un client</h2>
+				<button id="modal-close-delete">&times;</button>
+			</div>
+			<h3 id="message-delete-client"></h3>
+			<button id="confirmeDelete">Confirmer</button>
 		</div>
 	</div>
 </section>
