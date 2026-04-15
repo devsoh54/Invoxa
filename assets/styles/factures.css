@@ -1,0 +1,226 @@
+/* ══════════════════════════════
+   FACTURES — liste
+══════════════════════════════ */
+
+.factures-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.factures-table th {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    padding: 8px 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.factures-table td {
+    padding: 12px 16px;
+    color: #111;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.factures-table tbody tr:hover {
+    background: #f9f9f9;
+    cursor: pointer;
+}
+
+/* ── Numéro de facture ── */
+.factures-table .facture-num {
+    font-size: 13px;
+    color: #6b7280;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Badges statut ── */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge-draft {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+}
+
+.badge-sent {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+}
+
+.badge-paid {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.badge-late {
+    background: #fff5f5;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+/* ── Bouton nouvelle facture ── */
+#btn-add-facture {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 16px;
+    height: 38px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4f46e5;
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+        background 0.15s,
+        transform 0.1s;
+}
+
+#btn-add-facture:hover {
+    background: #e0e7ff;
+    border-color: #a5b4fc;
+}
+
+#btn-add-facture:active {
+    transform: scale(0.98);
+}
+
+/* ══════════════════════════════
+   FACTURES — modal
+══════════════════════════════ */
+
+#modal-overlay-facture.modal-overlay .modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 480px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#modal-overlay-facture .modal-header {
+    margin-bottom: 1.5rem;
+}
+
+#modal-overlay-facture .modal-header h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+#modal-overlay-facture .modal-header button {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #6b7280;
+    line-height: 1;
+}
+
+#modal-overlay-facture .modal-header button:hover {
+    color: #111;
+}
+
+/* ── Champs ── */
+#form-facture .field {
+    margin-bottom: 1.25rem;
+}
+
+#form-facture label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+
+#form-facture input,
+#form-facture select {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    font-size: 14px;
+    color: #111;
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    outline: none;
+    box-sizing: border-box;
+    transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
+    appearance: none;
+}
+
+#form-facture input:focus,
+#form-facture select:focus {
+    border-color: #6366f1;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* ── Ligne de deux champs côte à côte ── */
+#form-facture .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* ── Footer modal ── */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 1.5rem;
+}
+
+#btn-cancel-facture {
+    padding: 0 16px;
+    height: 38px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+#btn-cancel-facture:hover {
+    background: #f3f4f6;
+}
+
+#btn-submit-facture {
+    padding: 0 20px;
+    height: 38px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background: #6366f1;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+        background 0.15s,
+        transform 0.1s;
+}
+
+#btn-submit-facture:hover {
+    background: #4f46e5;
+}
+
+#btn-submit-facture:active {
+    transform: scale(0.98);
+}

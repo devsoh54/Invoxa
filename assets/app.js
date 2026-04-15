@@ -13,5 +13,6 @@ import "./styles/template.css";
 import "./styles/login.css";
 import "./styles/registration.css";
 import "./styles/client.css";
+import "./styles/factures.css";
 
 console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");
