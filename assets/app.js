@@ -1,6 +1,7 @@
 import "./stimulus_bootstrap.js";
 import "./template.js";
 import "./client.js";
+import "./factures.js";
 /*
  * Welcome to your app's main JavaScript file!
  *
