@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Facture;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\User;
 
 /**
  * @extends ServiceEntityRepository<Facture>
@@ -15,6 +16,17 @@ class FactureRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Facture::class);
     }
+
+    public function findAllFacturesByUser(User $user): array
+    {
+        return $this->createQueryBuilder('f')
+            ->join('f.client', 'c')
+            ->andWhere('c.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
 
     //    /**
     //     * @return Facture[] Returns an array of Facture objects
