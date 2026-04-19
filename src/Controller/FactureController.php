@@ -26,6 +26,7 @@ final class FactureController extends AbstractController
 
         $data = array_map(fn($facture) => [
             'id'    => $facture->getId(),
+            'clientId'    => $facture->getClient()->getId(),
             'clientName'  => $facture->getClient()->getName(),
             'number' => $facture->getNumber(),
             'status' => $facture->getStatus(),

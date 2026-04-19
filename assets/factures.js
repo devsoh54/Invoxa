@@ -102,8 +102,12 @@ document.addEventListener("turbo:load", () => {
     function openEditModal(facture) {
         currentFactureId = facture.id;
         document.getElementById("facture-client").value = facture.clientId;
-        document.getElementById("facture-date").value = facture.date;
-        document.getElementById("facture-echeance").value = facture.echeance;
+        document.getElementById("facture-date").value = formatDateForInput(
+            facture.date,
+        );
+        document.getElementById("facture-echeance").value = formatDateForInput(
+            facture.dueDate,
+        );
         document.getElementById("facture-total").value = facture.total;
         document.getElementById("facture-status").value = facture.status;
         openModal(true);
@@ -131,4 +135,10 @@ document.addEventListener("turbo:load", () => {
         closeModal();
         loadFactures();
     });
+
+    function formatDateForInput(date) {
+        if (!date) return "";
+        const [day, month, year] = date.split("/");
+        return `${year}-${month}-${day}`;
+    }
 });
