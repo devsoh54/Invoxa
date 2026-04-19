@@ -152,7 +152,6 @@ document.addEventListener("turbo:load", () => {
         });
 
         overlayDelete.classList.add("hidden");
-        loadClients(); // rafraîchit la liste
         loadFactures();
     });
 
