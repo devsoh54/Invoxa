@@ -65,4 +65,14 @@ final class FactureController extends AbstractController
 
         return $this->json(['id' => $facture->getId()], 201);
     }
+
+    #[Route('/delete/{id}', name: 'api_facture_delete', methods: ['GET'])]
+    public function delete(Request $request, EntityManagerInterface $em, ?Facture $facture): JsonResponse
+    {
+
+        $em->remove($facture);
+        $em->flush();
+
+        return $this->json(['id' => $facture->getId()], 201);
+    }
 }

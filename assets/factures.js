@@ -7,6 +7,13 @@ document.addEventListener("turbo:load", () => {
     const btnSubmit = document.getElementById("btn-submit-facture");
     const modalTitle = document.getElementById("modal-title-facture");
     const form = document.getElementById("form-facture");
+    const overlayDelete = document.getElementById(
+        "modal-overlay-facture-delete",
+    );
+    const btnCloseDelete = document.getElementById(
+        "modal-close-delete-facture",
+    );
+    const btnConfirmeDelete = document.getElementById("confirmeDeleteFacture");
     if (!container) return;
 
     let currentFactureId = null;
@@ -47,6 +54,7 @@ document.addEventListener("turbo:load", () => {
                         <th>Total</th>
                         <th>Statut</th>
                         <th>Modifier</th>
+                        <th>Supprimer</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,7 +68,8 @@ document.addEventListener("turbo:load", () => {
                             <td>${f.dueDate}</td>
                             <td>${parseFloat(f.total).toLocaleString("fr-FR", { style: "currency", currency: "EUR" })}</td>
                             <td><span class="badge badge-${f.status}">${statusLabels[f.status]}</span></td>
-                            <td><button class="btn-edit" data-id="${f.id}">Modifier</button></td>
+                            <td><button class="btn-edit-facture" data-id="${f.id}">Modifier</button></td>
+                            <td><button class="btn-delete-facture" data-id="${f.id}">Supprimer</button></td>
                         </tr>
                     `,
                         )
@@ -68,11 +77,19 @@ document.addEventListener("turbo:load", () => {
                 </tbody>
             </table>
         `;
-        document.querySelectorAll(".btn-edit").forEach((btn) => {
+        document.querySelectorAll(".btn-edit-facture").forEach((btn) => {
             btn.addEventListener("click", () => {
                 const id = parseInt(btn.dataset.id);
                 const facture = factures.find((f) => f.id === id);
                 openEditModal(facture);
+            });
+        });
+
+        document.querySelectorAll(".btn-delete-facture").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const id = parseInt(btn.dataset.id);
+                const facture = factures.find((c) => c.id === id);
+                openDeleteModal(facture);
             });
         });
     }
@@ -98,6 +115,9 @@ document.addEventListener("turbo:load", () => {
     overlay.addEventListener("click", (e) => {
         if (e.target === overlay) closeModal();
     });
+    btnCloseDelete.addEventListener("click", () =>
+        overlayDelete.classList.add("hidden"),
+    );
 
     function openEditModal(facture) {
         currentFactureId = facture.id;
@@ -112,6 +132,29 @@ document.addEventListener("turbo:load", () => {
         document.getElementById("facture-status").value = facture.status;
         openModal(true);
     }
+
+    function openDeleteModal(facture) {
+        document.getElementById("message-delete-facture").textContent =
+            "Voulez-vous vraiment supprimer la facture de  " +
+            facture.clientName +
+            " ?";
+        currentFactureId = facture.id;
+        overlayDelete.classList.remove("hidden");
+    }
+
+    btnConfirmeDelete.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const url = `/api/factures/delete/${currentFactureId}`;
+        await fetch(url, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        });
+
+        overlayDelete.classList.add("hidden");
+        loadClients(); // rafraîchit la liste
+        loadFactures();
+    });
 
     // ── Soumission ──
     form.addEventListener("submit", async (e) => {

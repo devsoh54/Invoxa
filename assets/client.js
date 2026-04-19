@@ -14,7 +14,6 @@ document.addEventListener("turbo:load", () => {
     async function loadClients() {
         const res = await fetch("/api/clients/list");
         const clients = await res.json();
-        console.log(clients);
         container.innerHTML = `
             <table class="clients-table">
                 <thead>
