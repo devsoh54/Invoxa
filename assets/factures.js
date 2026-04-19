@@ -57,7 +57,7 @@ document.addEventListener("turbo:load", () => {
                             <td>#${String(f.id).padStart(4, "0")}</td>
                             <td>${f.clientName}</td>
                             <td>${f.date}</td>
-                            <td>${f.echeance}</td>
+                            <td>${f.dueDate}</td>
                             <td>${parseFloat(f.total).toLocaleString("fr-FR", { style: "currency", currency: "EUR" })}</td>
                             <td><span class="badge badge-${f.status}">${statusLabels[f.status]}</span></td>
                             <td><button class="btn-edit" data-id="${f.id}">Modifier</button></td>
@@ -120,7 +120,7 @@ document.addEventListener("turbo:load", () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                clientId: document.getElementById("facture-client").value,
+                client: document.getElementById("facture-client").value,
                 date: document.getElementById("facture-date").value,
                 echeance: document.getElementById("facture-echeance").value,
                 total: document.getElementById("facture-total").value,

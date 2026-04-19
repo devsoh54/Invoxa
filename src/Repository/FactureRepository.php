@@ -21,11 +21,20 @@ class FactureRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('f')
             ->join('f.client', 'c')
-            ->andWhere('c.user = :user')
+            ->andWhere('c.User = :user')
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
     }
+
+    public function findMaxId(): ?int
+    {
+        return $this->createQueryBuilder('f')
+            ->select('MAX(f.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 
 
     //    /**

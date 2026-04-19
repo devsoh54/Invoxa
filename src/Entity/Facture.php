@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FactureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: FactureRepository::class)]
 class Facture
@@ -37,6 +38,12 @@ class Facture
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    public function __construct()
+    {
+
+        $this->setCreatedAt(new DateTimeImmutable());
+    }
 
     public function getId(): ?int
     {
