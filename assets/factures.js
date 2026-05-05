@@ -119,6 +119,74 @@ document.addEventListener("turbo:load", () => {
         overlayDelete.classList.add("hidden"),
     );
 
+    // ── Gestion des lignes ──
+    function createItemRow(item = {}) {
+        const row = document.createElement("div");
+        row.className = "item-row";
+        row.innerHTML = `
+        <input type="text"   class="item-description" placeholder="Description" value="${item.description ?? ""}"/>
+        <input type="number" class="item-quantity"    placeholder="1"   min="0" step="1"    value="${item.quantity ?? ""}"/>
+        <input type="number" class="item-price"       placeholder="0.00" min="0" step="0.01" value="${item.price ?? ""}"/>
+        <span class="item-total">0,00 €</span>
+        <button type="button" class="btn-remove-item">✕</button>
+    `;
+
+        const qtyInput = row.querySelector(".item-quantity");
+        const priceInput = row.querySelector(".item-price");
+        const totalSpan = row.querySelector(".item-total");
+
+        function updateRow() {
+            const qty = parseFloat(qtyInput.value) || 0;
+            const price = parseFloat(priceInput.value) || 0;
+            const total = qty * price;
+            totalSpan.textContent = total.toLocaleString("fr-FR", {
+                style: "currency",
+                currency: "EUR",
+            });
+            updateGlobalTotal();
+        }
+
+        qtyInput.addEventListener("input", updateRow);
+        priceInput.addEventListener("input", updateRow);
+
+        row.querySelector(".btn-remove-item").addEventListener("click", () => {
+            row.remove();
+            updateGlobalTotal();
+        });
+
+        // Si on charge une ligne existante, on affiche son total
+        if (item.quantity && item.price) updateRow();
+
+        return row;
+    }
+
+    function updateGlobalTotal() {
+        let total = 0;
+        document.querySelectorAll(".item-row").forEach((row) => {
+            const qty =
+                parseFloat(row.querySelector(".item-quantity").value) || 0;
+            const price =
+                parseFloat(row.querySelector(".item-price").value) || 0;
+            total += qty * price;
+        });
+        document.getElementById("facture-total-display").textContent =
+            total.toLocaleString("fr-FR", {
+                style: "currency",
+                currency: "EUR",
+            });
+        document.getElementById("facture-total").value = total.toFixed(2);
+    }
+
+    function resetItems() {
+        document.getElementById("facture-items").innerHTML = "";
+        updateGlobalTotal();
+    }
+
+    // ── Bouton ajouter une ligne ──
+    document.getElementById("btn-add-item").addEventListener("click", () => {
+        document.getElementById("facture-items").appendChild(createItemRow());
+    });
+
     function openEditModal(facture) {
         currentFactureId = facture.id;
         document.getElementById("facture-client").value = facture.clientId;
@@ -130,6 +198,13 @@ document.addEventListener("turbo:load", () => {
         );
         document.getElementById("facture-total").value = facture.total;
         document.getElementById("facture-status").value = facture.status;
+
+        resetItems();
+        (facture.items ?? []).forEach((item) => {
+            document
+                .getElementById("facture-items")
+                .appendChild(createItemRow(item));
+        });
         openModal(true);
     }
 
@@ -162,6 +237,20 @@ document.addEventListener("turbo:load", () => {
             ? `/api/factures/edit/${currentFactureId}`
             : "/api/factures/create";
 
+        const items = [];
+        document.querySelectorAll(".item-row").forEach((row) => {
+            const qty =
+                parseFloat(row.querySelector(".item-quantity").value) || 0;
+            const price =
+                parseFloat(row.querySelector(".item-price").value) || 0;
+            items.push({
+                description: row.querySelector(".item-description").value,
+                quantity: qty,
+                price: price,
+                total: qty * price,
+            });
+        });
+
         await fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -171,6 +260,7 @@ document.addEventListener("turbo:load", () => {
                 echeance: document.getElementById("facture-echeance").value,
                 total: document.getElementById("facture-total").value,
                 status: document.getElementById("facture-status").value,
+                items, //raccourci ES6 pas besoin d'écrire items: items c pareil
             }),
         });
 

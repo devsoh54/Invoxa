@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FactureRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 
@@ -39,10 +41,17 @@ class Facture
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    /**
+     * @var Collection<int, FactureItem>
+     */
+    #[ORM\OneToMany(targetEntity: FactureItem::class, mappedBy: 'facture', orphanRemoval: true)]
+    private Collection $factureItems;
+
     public function __construct()
     {
 
         $this->setCreatedAt(new DateTimeImmutable());
+        $this->factureItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,6 +151,36 @@ class Facture
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FactureItem>
+     */
+    public function getFactureItems(): Collection
+    {
+        return $this->factureItems;
+    }
+
+    public function addFactureItem(FactureItem $factureItem): static
+    {
+        if (!$this->factureItems->contains($factureItem)) {
+            $this->factureItems->add($factureItem);
+            $factureItem->setFacture($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFactureItem(FactureItem $factureItem): static
+    {
+        if ($this->factureItems->removeElement($factureItem)) {
+            // set the owning side to null (unless already changed)
+            if ($factureItem->getFacture() === $this) {
+                $factureItem->setFacture(null);
+            }
+        }
 
         return $this;
     }
