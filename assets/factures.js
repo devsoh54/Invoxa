@@ -124,12 +124,14 @@ document.addEventListener("turbo:load", () => {
         const row = document.createElement("div");
         row.className = "item-row";
         row.innerHTML = `
-        <input type="text"   class="item-description" placeholder="Description" value="${item.description ?? ""}"/>
-        <input type="number" class="item-quantity"    placeholder="1"   min="0" step="1"    value="${item.quantity ?? ""}"/>
-        <input type="number" class="item-price"       placeholder="0.00" min="0" step="0.01" value="${item.price ?? ""}"/>
-        <span class="item-total">0,00 €</span>
-        <button type="button" class="btn-remove-item">✕</button>
-    `;
+            Description:<input type="text" class="item-description" placeholder="Description" value="${item.description ?? ""}"/>
+            <div class="item-row-bottom">
+               <p>Qté: <input type="number" class="item-quantity" placeholder="1"    min="0" step="1"    value="${item.quantity ?? ""}"/></p>
+                <p>Prix unit.:<input type="number" class="item-price"    placeholder="0.00" min="0" step="0.01" value="${item.price ?? ""}"/></p>
+               <p> Total:<span class="item-total">0,00 €</span></p>
+                <button type="button" class="btn-remove-item">✕</button>
+            </div>
+        `;
 
         const qtyInput = row.querySelector(".item-quantity");
         const priceInput = row.querySelector(".item-price");
