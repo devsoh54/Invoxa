@@ -19,8 +19,8 @@ class FactureItem
     #[ORM\JoinColumn(nullable: false)]
     private ?Facture $facture = null;
 
-    #[ORM\Column(type: Types::NUMBER)]
-    private ?Number $quantity = null;
+    #[ORM\Column(type: Types::INTEGER)]
+    private ?int $quantity = null;
 
     #[ORM\Column]
     private ?float $price = null;
@@ -48,12 +48,12 @@ class FactureItem
         return $this;
     }
 
-    public function getQuantity(): ?Number
+    public function getQuantity(): ?int
     {
         return $this->quantity;
     }
 
-    public function setQuantity(Number $quantity): static
+    public function setQuantity(int $quantity): static
     {
         $this->quantity = $quantity;
 

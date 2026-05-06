@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Facture;
+use App\Entity\FactureItem;
 use App\Repository\ClientRepository;
 use App\Repository\FactureRepository;
 use App\Service\NumberFactureGenerator;
@@ -40,7 +41,7 @@ final class FactureController extends AbstractController
 
     #[Route('/create', name: 'api_factures_create', methods: ['POST'])]
     #[Route('/edit/{id}', name: 'api_factures_edit', methods: ['GET', 'POST'])]
-    public function create(Request $request, EntityManagerInterface $em, ?Facture $facture, FactureRepository $fr, ClientRepository $cr, NumberFactureGenerator $numGenerator): JsonResponse
+    public function create(Request $request, EntityManagerInterface $em, ?Facture $facture, ?FactureItem $fi, FactureRepository $fr, ClientRepository $cr, NumberFactureGenerator $numGenerator): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
@@ -59,6 +60,16 @@ final class FactureController extends AbstractController
         $facture->setDate($date);
         $facture->setDueDate($duedate);
         $facture->setTotal($data['total']);
+
+        foreach ($data['items'] as $item) {
+            $factureItem = new FactureItem();
+            $factureItem->setDescription($item['description']);
+            $factureItem->setQuantity($item['quantity']);
+            $factureItem->setPrice($item['price']);
+            $factureItem->setTotal($item['total']);
+            $factureItem->setFacture($facture);
+            $em->persist($factureItem);
+        }
 
         $em->persist($facture);
         $em->flush();
