@@ -120,7 +120,7 @@ document.addEventListener("turbo:load", () => {
     );
 
     // ── Gestion des lignes ──
-    function createItemRow(item = {}) {
+    function createItemRow(item = {}, skipGlobalUpdate = false) {
         const row = document.createElement("div");
         row.className = "item-row";
         row.innerHTML = `
@@ -138,6 +138,7 @@ document.addEventListener("turbo:load", () => {
         const totalSpan = row.querySelector(".item-total");
 
         function updateRow() {
+            console.log(skipGlobalUpdate);
             const qty = parseFloat(qtyInput.value) || 0;
             const price = parseFloat(priceInput.value) || 0;
             const total = qty * price;
@@ -145,7 +146,8 @@ document.addEventListener("turbo:load", () => {
                 style: "currency",
                 currency: "EUR",
             });
-            updateGlobalTotal();
+            if (!skipGlobalUpdate) updateGlobalTotal();
+            skipGlobalUpdate = false;
         }
 
         qtyInput.addEventListener("input", updateRow);
@@ -163,6 +165,7 @@ document.addEventListener("turbo:load", () => {
     }
 
     function updateGlobalTotal() {
+        console.log("oueeech");
         let total = 0;
         document.querySelectorAll(".item-row").forEach((row) => {
             const qty =
@@ -171,6 +174,7 @@ document.addEventListener("turbo:load", () => {
                 parseFloat(row.querySelector(".item-price").value) || 0;
             total += qty * price;
         });
+        console.log(document.querySelectorAll(".item-row").length);
         document.getElementById("facture-total-display").textContent =
             total.toLocaleString("fr-FR", {
                 style: "currency",
@@ -202,11 +206,12 @@ document.addEventListener("turbo:load", () => {
         document.getElementById("facture-status").value = facture.status;
 
         resetItems();
-        (facture.items ?? []).forEach((item) => {
+        (facture.factureItems ?? []).forEach((item) => {
             document
                 .getElementById("facture-items")
-                .appendChild(createItemRow(item));
+                .appendChild(createItemRow(item, true));
         });
+        updateGlobalTotal();
         openModal(true);
     }
 

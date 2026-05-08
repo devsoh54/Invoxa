@@ -33,7 +33,17 @@ final class FactureController extends AbstractController
             'status' => $facture->getStatus(),
             'date' => $facture->getDate()->format('d/m/Y'),
             'dueDate' => $facture->getDueDate()->format('d/m/Y'),
-            'total' => $facture->getTotal()
+            'total' => $facture->getTotal(),
+            'factureItems' => array_map(
+                fn($item) => [
+                    'id' => $item->getId(),
+                    'description' => $item->getDescription(),
+                    'quantity' => $item->getQuantity(),
+                    'price' => $item->getPrice(),
+                    'total' => $item->getTotal(),
+                ],
+                $facture->getFactureItems()->toArray()
+            )
         ], $factures);
 
         return $this->json($data);
