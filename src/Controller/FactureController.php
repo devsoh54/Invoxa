@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
 
 #[Route('/api/factures')]
 final class FactureController extends AbstractController
@@ -48,6 +49,32 @@ final class FactureController extends AbstractController
         ], $factures);
 
         return $this->json($data);
+    }
+
+    #[Route('/facture-pdf/{id}', name: 'facture-pdf', methods: ['GET'])]
+    public function generatePdf(Request $request, EntityManagerInterface $em, ?Facture $facture, ?FactureItem $fi, FactureRepository $fr, FactureItemRepository $fir): Response
+    {
+
+        $html = $this->renderView('facture/pdf.html.twig', [
+            'facture' => $facture,
+        ]);
+        // reference the Dompdf namespace
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        return new Response(
+            $dompdf->output(),
+            200,
+            [
+                'Content-Type'        => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="facture-' . $facture->getId() . '.pdf"',
+            ]
+        );
     }
 
     #[Route('/create', name: 'api_factures_create', methods: ['POST'])]

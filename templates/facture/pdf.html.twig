@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			body {
+				font-family: sans-serif;
+				font-size: 13px;
+				color: #111;
+				padding: 40px;
+			}
+
+			.header {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 40px;
+			}
+			.header h1 {
+				font-size: 24px;
+				font-weight: 500;
+				color: #6366f1;
+			}
+			.header .number {
+				font-size: 13px;
+				color: #6b7280;
+				margin-top: 4px;
+			}
+
+			.parties {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 40px;
+			}
+			.partie h3 {
+				font-size: 11px;
+				font-weight: 500;
+				color: #6b7280;
+				text-transform: uppercase;
+				margin-bottom: 8px;
+			}
+			.partie p {
+				font-size: 13px;
+				line-height: 1.6;
+			}
+
+			.dates {
+				display: flex;
+				gap: 40px;
+				margin-bottom: 32px;
+			}
+			.date-block label {
+				font-size: 11px;
+				color: #6b7280;
+				text-transform: uppercase;
+				display: block;
+				margin-bottom: 2px;
+			}
+			.date-block span {
+				font-size: 13px;
+				font-weight: 500;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-bottom: 24px;
+			}
+			thead th {
+				font-size: 11px;
+				font-weight: 500;
+				color: #6b7280;
+				text-transform: uppercase;
+				padding: 8px 12px;
+				border-bottom: 1px solid #e0e0e0;
+				text-align: left;
+			}
+			tbody td {
+				padding: 10px 12px;
+				border-bottom: 1px solid #f3f4f6;
+				font-size: 13px;
+			}
+			thead th:nth-child(2),
+			thead th:nth-child(3),
+			thead th:nth-child(4),
+			tbody td:nth-child(2),
+			tbody td:nth-child(3),
+			tbody td:nth-child(4) {
+				text-align: right;
+			}
+
+			.total-block {
+				text-align: right;
+			}
+			.total-block .total-line {
+				font-size: 16px;
+				font-weight: 500;
+				margin-top: 4px;
+			}
+
+			.badge {
+				display: inline-block;
+				padding: 3px 10px;
+				border-radius: 99px;
+				font-size: 11px;
+				font-weight: 500;
+			}
+			.badge-draft {
+				background: #f3f4f6;
+				color: #374151;
+			}
+			.badge-sent {
+				background: #eff6ff;
+				color: #1d4ed8;
+			}
+			.badge-paid {
+				background: #f0fdf4;
+				color: #15803d;
+			}
+			.badge-late {
+				background: #fff5f5;
+				color: #991b1b;
+			}
+
+			.footer {
+				margin-top: 60px;
+				padding-top: 16px;
+				border-top: 1px solid #e0e0e0;
+				font-size: 11px;
+				color: #9ca3af;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="header">
+			<div>
+				<h1>Facture</h1>
+				<p class="number">#{{ facture.number }}</p>
+			</div>
+			<div style="text-align: right;">
+				<span class="badge badge-{{ facture.status }}">
+					{% set labels = { draft: 'Brouillon', sent: 'Envoyée', paid: 'Payée', late: 'En retard' } %}
+					{{ labels[facture.status] }}
+				</span>
+			</div>
+		</div>
+
+		<div class="parties">
+			<div class="partie">
+				<h3>Émetteur</h3>
+				<p>{{ facture.client.user.name ?? facture.client.user.email }}</p>
+			</div>
+			<div class="partie" style="text-align: right;">
+				<h3>Client</h3>
+				<p>{{ facture.client.name }}</p>
+				{% if facture.client.company %}
+					<p>{{ facture.client.company }}</p>
+				{% endif %}
+				<p>{{ facture.client.email }}</p>
+				{% if facture.client.phone %}
+					<p>{{ facture.client.phone }}</p>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="dates">
+			<div class="date-block">
+				<label>Date de la facture</label>
+				<span>{{ facture.date|date('d/m/Y') }}</span>
+			</div>
+			<div class="date-block">
+				<label>Date d'échéance</label>
+				<span>{{ facture.dueDate|date('d/m/Y') }}</span>
+			</div>
+		</div>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Description</th>
+					<th>Qté</th>
+					<th>Prix unit.</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in facture.factureItems %}
+					<tr>
+						<td>{{ item.description }}</td>
+						<td>{{ item.quantity }}</td>
+						<td>{{ item.price|number_format(2, ',', ' ') }}
+							€</td>
+						<td>{{ item.total|number_format(2, ',', ' ') }}
+							€</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<div class="total-block">
+			<span style="color: #6b7280; font-size: 13px;">Total</span>
+			<p class="total-line">{{ facture.total|number_format(2, ',', ' ') }}
+				€</p>
+		</div>
+
+		<div class="footer">
+			Document généré le
+			{{ "now"|date('d/m/Y') }}
+		</div>
+
+	</body>
+</html>

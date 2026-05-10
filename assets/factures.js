@@ -53,6 +53,7 @@ document.addEventListener("turbo:load", () => {
                         <th>Échéance</th>
                         <th>Total</th>
                         <th>Statut</th>
+                        <th>PDF</th>
                         <th>Modifier</th>
                         <th>Supprimer</th>
                     </tr>
@@ -68,6 +69,7 @@ document.addEventListener("turbo:load", () => {
                             <td>${f.dueDate}</td>
                             <td>${parseFloat(f.total).toLocaleString("fr-FR", { style: "currency", currency: "EUR" })}</td>
                             <td><span class="badge badge-${f.status}">${statusLabels[f.status]}</span></td>
+                            <td><a href="/api/factures/facture-pdf/${f.id}">Générer PDF</a></td>
                             <td><button class="btn-edit-facture" data-id="${f.id}">Modifier</button></td>
                             <td><button class="btn-delete-facture" data-id="${f.id}">Supprimer</button></td>
                         </tr>
