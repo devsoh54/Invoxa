@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Facture;
 use App\Entity\FactureItem;
 use App\Repository\ClientRepository;
+use App\Repository\FactureItemRepository;
 use App\Repository\FactureRepository;
 use App\Service\NumberFactureGenerator;
 use DateTimeImmutable;
@@ -51,10 +52,11 @@ final class FactureController extends AbstractController
 
     #[Route('/create', name: 'api_factures_create', methods: ['POST'])]
     #[Route('/edit/{id}', name: 'api_factures_edit', methods: ['GET', 'POST'])]
-    public function create(Request $request, EntityManagerInterface $em, ?Facture $facture, ?FactureItem $fi, FactureRepository $fr, ClientRepository $cr, NumberFactureGenerator $numGenerator): JsonResponse
+    public function create(Request $request, EntityManagerInterface $em, ?Facture $facture, ?FactureItem $fi, FactureRepository $fr, FactureItemRepository $fir, ClientRepository $cr, NumberFactureGenerator $numGenerator): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
+        $isEdit = $facture !== null;
         $facture = $facture ?? new Facture();
 
         $client = $cr->find($data['client']);
@@ -62,22 +64,45 @@ final class FactureController extends AbstractController
         $date =  new DateTimeImmutable($data['date']);
         $duedate = new DateTimeImmutable($data['echeance']);
 
-        $number = $numGenerator->generateNumber($fr);
+        // Numéro uniquement à la création
+        if (!$isEdit) {
+            $facture->setNumber($numGenerator->generateNumber($fr));
+        }
 
         $facture->setClient($client);
         $facture->setStatus($data['status']);
-        $facture->setNumber($number);
         $facture->setDate($date);
         $facture->setDueDate($duedate);
         $facture->setTotal($data['total']);
 
+        // Récupère les ids envoyés par le front (possible uniquement lors d'une édition)
+        $submittedIds = array_filter(
+            array_column($data['items'], 'id')
+        );
+
+        // Supprime les items qui ne sont plus dans la liste
+        if ($isEdit) {
+            foreach ($facture->getFactureItems() as $existingItem) {
+                if (!in_array($existingItem->getId(), $submittedIds)) {
+                    $facture->removeFactureItem($existingItem);
+                    $em->remove($existingItem);
+                }
+            }
+        }
+
         foreach ($data['items'] as $item) {
-            $factureItem = new FactureItem();
+            if (!empty($item['id'])) {
+                // Mise à jour d'un item existant
+                $factureItem = $fir->find($item['id']);
+            } else {
+                // Nouvel item
+                $factureItem = new FactureItem();
+                $factureItem->setFacture($facture);
+            }
             $factureItem->setDescription($item['description']);
             $factureItem->setQuantity($item['quantity']);
             $factureItem->setPrice($item['price']);
             $factureItem->setTotal($item['total']);
-            $factureItem->setFacture($facture);
             $em->persist($factureItem);
         }
 
@@ -88,7 +113,7 @@ final class FactureController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'api_facture_delete', methods: ['GET'])]
-    public function delete(Request $request, EntityManagerInterface $em, ?Facture $facture): JsonResponse
+    public function delete(EntityManagerInterface $em, ?Facture $facture): JsonResponse
     {
 
         $em->remove($facture);

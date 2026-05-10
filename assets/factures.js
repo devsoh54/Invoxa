@@ -124,6 +124,7 @@ document.addEventListener("turbo:load", () => {
         const row = document.createElement("div");
         row.className = "item-row";
         row.innerHTML = `
+            <input type="hidden" class="item-id" value="${item.id ?? ""}"/>
             Description:<input type="text" class="item-description" placeholder="Description" value="${item.description ?? ""}"/>
             <div class="item-row-bottom">
                <p>Qté: <input type="number" class="item-quantity" placeholder="1"    min="0" step="1"    value="${item.quantity ?? ""}"/></p>
