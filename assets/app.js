@@ -2,6 +2,7 @@ import "./stimulus_bootstrap.js";
 import "./template.js";
 import "./client.js";
 import "./factures.js";
+import "./dashboard.js";
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -14,5 +15,6 @@ import "./styles/login.css";
 import "./styles/registration.css";
 import "./styles/client.css";
 import "./styles/factures.css";
+import "./styles/dashboard.css";
 
 console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");

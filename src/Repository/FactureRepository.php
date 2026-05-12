@@ -35,6 +35,30 @@ class FactureRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function getTotalByUser(User $user): float
+    {
+        return (float) $this->createQueryBuilder('f')
+            ->select('SUM(f.total)')
+            ->join('f.client', 'c')
+            ->where('c.User = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleScalarResult() ?? 0;
+    }
+
+    public function countByStatusAndUser(string $status, User $user): int
+    {
+        return (int) $this->createQueryBuilder('f')
+            ->select('COUNT(f.id)')
+            ->join('f.client', 'c')
+            ->where('c.User = :user')
+            ->andWhere('f.status = :status')
+            ->setParameter('user', $user)
+            ->setParameter('status', $status)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 
 
     //    /**

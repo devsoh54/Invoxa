@@ -1,29 +1,36 @@
-<!-- ======= HERO ======= -->
 <section class="hero" id="hero">
-	<div class="hero__content">
-		<div class="hero__badge reveal">Now Scooping</div>
-		<h1 class="hero__title reveal reveal-delay-1">
-			Life's too short for<br><em>boring desserts.</em>
-		</h1>
-		<p class="hero__subtitle reveal reveal-delay-2">
-			Handcrafted ice cream and gelato made fresh every morning with locally sourced milk, seasonal fruits, and a dash of something unexpected.
-		</p>
-		<div class="hero__actions reveal reveal-delay-3">
-			<a href="#flavors" class="btn btn--primary">Explore Flavors</a>
-			<a href="#catering" class="btn btn--outline">Book a Cart</a>
-		</div>
-	</div>
 
-	<!-- Decorative ice cream scoops -->
-	<div class="hero__deco" aria-hidden="true">
-		<div class="scoop scoop--strawberry">
-			<div class="scoop--highlight"></div>
+	<section class="section dashboard" id="dashboard">
+		<h2 class="dashboard-title">Tableau de bord</h2>
+		<div class="kpi-grid" id="kpi-grid">
+			<div class="kpi-card" id="kpi-ca">
+				<div class="kpi-icon">💰</div>
+				<div class="kpi-content">
+					<p class="kpi-label">Chiffre d'affaires</p>
+					<p class="kpi-value" id="kpi-ca-value">—</p>
+				</div>
+			</div>
+			<div class="kpi-card" id="kpi-envoyees">
+				<div class="kpi-icon">📄</div>
+				<div class="kpi-content">
+					<p class="kpi-label">Factures envoyées</p>
+					<p class="kpi-value" id="kpi-envoyees-value">—</p>
+				</div>
+			</div>
+			<div class="kpi-card kpi-warning" id="kpi-attente">
+				<div class="kpi-icon">⏳</div>
+				<div class="kpi-content">
+					<p class="kpi-label">En attente</p>
+					<p class="kpi-value" id="kpi-attente-value">—</p>
+				</div>
+			</div>
+			<div class="kpi-card kpi-danger" id="kpi-retard">
+				<div class="kpi-icon">❌</div>
+				<div class="kpi-content">
+					<p class="kpi-label">En retard</p>
+					<p class="kpi-value" id="kpi-retard-value">—</p>
+				</div>
+			</div>
 		</div>
-		<div class="scoop scoop--mint">
-			<div class="scoop--highlight"></div>
-		</div>
-		<div class="scoop scoop--vanilla">
-			<div class="scoop--highlight"></div>
-		</div>
-	</div>
+	</section>
 </section>
