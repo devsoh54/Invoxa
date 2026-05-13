@@ -24,4 +24,11 @@ class DashboardController extends AbstractController
             'enRetard'         => $factureRepository->countByStatusAndUser('late', $user),
         ]);
     }
+
+    #[Route('/ca-semaine', name: 'api_dashboard_ca_semaine', methods: ['GET'])]
+    public function caSemaine(FactureRepository $factureRepository): JsonResponse
+    {
+        $data = $factureRepository->getCAParSemaineByUser($this->getUser());
+        return $this->json($data);
+    }
 }

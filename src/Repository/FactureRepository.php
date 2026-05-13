@@ -59,7 +59,23 @@ class FactureRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function getCAParSemaineByUser(User $user): array
+    {
+        $results = $this->createQueryBuilder('f')
+            ->select('YEAR(f.date) as annee, WEEK(f.date) as semaine, SUM(f.total) as total')
+            ->join('f.client', 'c')
+            ->where('c.User = :user')
+            ->andWhere('f.date >= :debut')
+            ->setParameter('user', $user)
+            ->setParameter('debut', new \DateTimeImmutable('-12 weeks'))
+            ->groupBy('annee, semaine')
+            ->orderBy('annee', 'ASC')
+            ->addOrderBy('semaine', 'ASC')
+            ->getQuery()
+            ->getArrayResult();
 
+        return $results;
+    }
 
     //    /**
     //     * @return Facture[] Returns an array of Facture objects

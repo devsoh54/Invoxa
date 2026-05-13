@@ -66,3 +66,19 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+.chart-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+}
+
+.chart-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
