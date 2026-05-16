@@ -85,6 +85,39 @@ document.addEventListener("turbo:load", () => {
         });
     }
 
+    async function loadDernieresFactures() {
+        const res = await fetch("/api/dashboard/dernieres-factures");
+        const factures = await res.json();
+
+        const statusLabels = {
+            draft: "Brouillon",
+            sent: "Envoyée",
+            paid: "Payée",
+            late: "En retard",
+        };
+
+        const container = document.getElementById("dernieres-factures");
+        if (!container) return;
+
+        container.innerHTML = factures
+            .map(
+                (f) => `
+        <div class="derniere-facture-row">
+            <div class="derniere-facture-client">${f.clientName}</div>
+            <div class="derniere-facture-date">${f.date}</div>
+            <div>
+                <span class="badge badge-${f.status}">${statusLabels[f.status]}</span>
+            </div>
+            <div class="derniere-facture-montant">
+                ${parseFloat(f.total).toLocaleString("fr-FR", { style: "currency", currency: "EUR" })}
+            </div>
+        </div>
+    `,
+            )
+            .join("");
+    }
+
     loadGraphique();
     loadKpi();
+    loadDernieresFactures();
 });

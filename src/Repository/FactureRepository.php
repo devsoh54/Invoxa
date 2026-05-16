@@ -77,6 +77,18 @@ class FactureRepository extends ServiceEntityRepository
         return $results;
     }
 
+    public function getLastFacturesByUser(User $user, int $limit = 3): array
+    {
+        return $this->createQueryBuilder('f')
+            ->join('f.client', 'c')
+            ->where('c.User = :user')
+            ->setParameter('user', $user)
+            ->orderBy('f.date', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Facture[] Returns an array of Facture objects
     //     */

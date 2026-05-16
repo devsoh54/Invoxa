@@ -82,3 +82,33 @@
     text-transform: uppercase;
     margin-bottom: 20px;
 }
+
+.derniere-facture-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.derniere-facture-row:last-child {
+    border-bottom: none;
+}
+
+.derniere-facture-client {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111;
+}
+
+.derniere-facture-date {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.derniere-facture-montant {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111;
+    text-align: right;
+}

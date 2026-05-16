@@ -31,4 +31,20 @@ class DashboardController extends AbstractController
         $data = $factureRepository->getCAParSemaineByUser($this->getUser());
         return $this->json($data);
     }
+
+    #[Route('/dernieres-factures', name: 'api_dashboard_dernieres_factures', methods: ['GET'])]
+    public function dernieresFactures(FactureRepository $factureRepository): JsonResponse
+    {
+        $factures = $factureRepository->getLastFacturesByUser($this->getUser());
+
+        $data = array_map(fn($f) => [
+            'id'         => $f->getId(),
+            'clientName' => $f->getClient()->getName(),
+            'total'      => $f->getTotal(),
+            'status'     => $f->getStatus(),
+            'date'       => $f->getDate()?->format('d/m/Y'),
+        ], $factures);
+
+        return $this->json($data);
+    }
 }
